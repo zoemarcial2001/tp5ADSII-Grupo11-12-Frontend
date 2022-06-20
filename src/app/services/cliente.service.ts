@@ -1,38 +1,38 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Maquinaria } from '../models/maquinaria';
+import { Cliente } from '../models/cliente';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MaquinariaService {
+export class ClienteService {
 
-  urlBase = "http://localhost:8080/maquinaria"
-
+  urlBase = "http://localhost:8080/cliente"
+  
   constructor(private http: HttpClient) { }
 
-  getMaquinarias(): Observable<any>{
+  createCliente(cliente: Cliente): Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
-      
+
+      }),
+      params: new HttpParams({
+
+      })
+    };
+    return this.http.post(this.urlBase+"/guardar", cliente, httpOptions);
+  }
+
+  getClientes(): Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+
       }),
       params: new HttpParams({
 
       })
     };
     return this.http.get(this.urlBase, httpOptions);
-  }
-
-  guardarMaquinaria(maq: Maquinaria): Observable<any>{
-    const httpOptions = {
-      headers: new HttpHeaders({
-
-      }),
-      params: new HttpParams({
-
-      })
-    };
-    return this.http.post(this.urlBase+"/guardar", maq, httpOptions)
   }
 }

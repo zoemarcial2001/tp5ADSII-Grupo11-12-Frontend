@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Cliente } from 'src/app/models/cliente';
 import { AlquilerService } from 'src/app/services/alquiler.service';
+import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
   selector: 'app-registrar-clientes',
@@ -12,7 +13,7 @@ export class RegistrarClientesComponent implements OnInit {
   cliente: Cliente;
   clientes: Array<Cliente>;
 
-  constructor(private alquilerService: AlquilerService) {
+  constructor(private clienteService: ClienteService) {
     this.cliente = new Cliente;
     this.clientes = new Array<Cliente>();
   }
@@ -21,21 +22,15 @@ export class RegistrarClientesComponent implements OnInit {
   }
 
   getClientes(){
-    this.alquilerService.getClientes().subscribe(
-      (result)=>{
-        this.clientes = result;
-      }
-    )
+    
   }
 
-  registrarCliente(form: NgForm){
-    console.log(form.value);
-    this.alquilerService.createCliente(form.value).subscribe(
-      (result)=>{
-        this.getClientes();
-        this.resetForm(form);
-      }
-    )
+  registrarCliente(){
+    var fech = new Date();
+    this.cliente.fechaAlta = fech.getDate() + "/" + fech.getMonth() +"/"+ fech.getFullYear();
+    this.clienteService.createCliente(this.cliente).subscribe((cli) =>{
+      console.log(cli);
+    })
   }
 
   resetForm(form: NgForm){

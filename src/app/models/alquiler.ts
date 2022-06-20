@@ -8,4 +8,8 @@ export class Alquiler {
     fechaAlquiler!: string;
     fechaDevolucion!: string;
     precio!: number;
+
+    constructor(){
+        
+    }
 }

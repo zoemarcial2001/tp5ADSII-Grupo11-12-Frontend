@@ -1,0 +1,44 @@
+<div class="container m-5">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card">
+                <div class="card-title text-center">
+                    <h3>REGISTRAR ALQUILER</h3>
+                </div>
+                <div class="card-body">
+                    <form #form="ngForm" (ngSubmit)="registrarMaquinaria()">
+                        <div class="form-group">
+                            <label for="codigo"><strong>Ingrese el codigo de la maquinaria:</strong></label>
+                            <input [(ngModel)]="maquinaria.codigo" name="codigo" id="codigo" required #codigo="ngModel" type="" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label for="categoria"><strong>Ingrese la categoria de la maquinaria</strong></label>
+                            <select [(ngModel)]="maquinaria.categoria" name="categoria" id="categoria" class="form-select" aria-label="Default select example" required #categoria="ngModel">
+                                <option value="Agricola">Agricola</option>
+                                <option value="Construccion">Construccion</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="fechaAdquisicion"><strong>Ingrese la fecha de adquisicion de la maquinaria:</strong></label>
+                            <input [(ngModel)]="maquinaria.fechaAdquisicion" name="fechaAdquisicion" id="fechaAdquisicion" required #fechaAdquisicion="ngModel" type="date" class="form-control" placeholder="Ingrese fecha.">
+                        </div>
+                        <div class="form-group">
+                            <label for="imagen"><strong>Ingrese imagen de la maquinaria:</strong></label>
+                            <input id="imagen" type="file" alife-file-to-base64 multiple (onFileChanged)="onFileChanges($event)" accept="image/x-png,image/gif,image/jpeg"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="marca"><strong>Ingrese la marca de la maquinaria:</strong></label>
+                            <input [(ngModel)]="maquinaria.marca" name="marca" id="marca" required #marca="ngModel" type="text" class="form-control" placeholder="Ingrese la marca .">
+                        </div>
+                        <div class="form-group">
+                            <label for="modelo"><strong>Ingrese el modelo de la maquinaria:</strong></label>
+                            <input [(ngModel)]="maquinaria.modelo" name="modelo" id="modelo" required #modelo="ngModel" type="text" class="form-control" placeholder="Ingrese el modelo.">
+                        </div>
+                        <br>
+                        <button [disabled]="form.invalid" type="submit" class="btn btn-primary">REGISTRAR</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,8 @@ import { Alquiler } from 'src/app/models/alquiler';
 import { Cliente } from 'src/app/models/cliente';
 import { Maquinaria } from 'src/app/models/maquinaria';
 import { AlquilerService } from 'src/app/services/alquiler.service';
+import { ClienteService } from 'src/app/services/cliente.service';
+import { MaquinariaService } from 'src/app/services/maquinaria.service';
 
 @Component({
   selector: 'app-registrar-alquiler',
@@ -12,34 +14,40 @@ import { AlquilerService } from 'src/app/services/alquiler.service';
 })
 export class RegistrarAlquilerComponent implements OnInit {
   alquiler: Alquiler;
-  alquileres: Array<Alquiler>;
-  clientes: Array<Cliente>;
-  maquinarias: Array<Maquinaria>;
+  clientes!:Array<Cliente>;
+  maquinarias!: Array<Maquinaria>;
+  alquileres!: Array<Alquiler>;
 
-  constructor(private alquilerService: AlquilerService) {
+  constructor(private alquilerService: AlquilerService, private maquinariaService: MaquinariaService, private clienteService:ClienteService) {
     this.alquiler = new Alquiler;
-    this.alquileres = new Array<Alquiler>();
     this.clientes = new Array<Cliente>();
+    this.alquileres = new Array<Alquiler>();
     this.maquinarias = new Array<Maquinaria>();
+    this.getClientes();
+    this.getMaquinarias();
   }
 
   ngOnInit(): void {
   }
 
   getClientes(){
-    this.alquilerService.getClientes().subscribe(
-      (result)=>{
-        this.clientes = result;
+    this.clienteService.getClientes().subscribe((cli) => {
+      for(var i=0; i < cli.length; i++){
+        var cliente = new Cliente;
+        cliente = cli[i];
+        this.clientes.push(cliente);
       }
-    )
+    })
   }
 
   getMaquinarias(){
-    this.alquilerService.getMaquinarias().subscribe(
-      (result)=>{
-        this.maquinarias = result;
+    this.maquinariaService.getMaquinarias().subscribe((maq) => {
+      for(var i=0; i < maq.length; i++){
+        var maquinaria = new Maquinaria;
+        maquinaria = maq[i];
+        this.maquinarias.push(maquinaria);
       }
-    )
+    })
   }
 
   getAlquileres(){
@@ -50,14 +58,10 @@ export class RegistrarAlquilerComponent implements OnInit {
     )
   }
 
-  registrarAlquiler(form: NgForm){
-    console.log(form.value);
-    this.alquilerService.createAlquiler(form.value).subscribe(
-      (result)=>{
-        this.getAlquileres();
-        this.resetForm(form);
-      }
-    )
+  registrarAlquiler(){
+    this.alquilerService.createAlquiler(this.alquiler).subscribe((alq)=>{
+      console.log(alq);
+    })
   }
 
   resetForm(form: NgForm){

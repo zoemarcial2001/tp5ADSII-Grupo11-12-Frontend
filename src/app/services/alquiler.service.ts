@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Alquiler } from '../models/alquiler';
@@ -11,7 +11,7 @@ import { Maquinaria } from '../models/maquinaria';
 export class AlquilerService {
   url_clientes = 'http://localhost:8080/clientes/lista';
   url_maquinarias = 'http://localhost:8080/maquinarias/lista';
-  url_alquileres = 'http://localhost:8080/alquiler/';
+  urlBase = 'http://localhost:8080/alquiler';
 
   constructor(private http: HttpClient) {}
 
@@ -19,9 +19,16 @@ export class AlquilerService {
     return this.http.get<Cliente[]>(this.url_clientes);
   }
 
-  createCliente(cliente: Cliente): Observable<any>{
-    return this.http.post(this.url_alquileres, cliente + 'guardar');
+  createAlquiler(alquiler: Alquiler): Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
 
+      }),
+      params: new HttpParams({
+
+      })
+    };
+    return this.http.post(this.urlBase+"/guardar", alquiler, httpOptions);
   }
 
   getMaquinarias(): Observable<any>{
@@ -29,11 +36,9 @@ export class AlquilerService {
   }
 
   getAlquileres(): Observable<any>{
-    return this.http.get<Alquiler[]>(this.url_alquileres + 'lista');
+    return this.http.get<Alquiler[]>(this.urlBase + 'lista');
   }
 
-  createAlquiler(alquiler: Alquiler): Observable<any>{
-    return this.http.post(this.url_alquileres, alquiler + 'guardar');
-  }
+  
 
 }

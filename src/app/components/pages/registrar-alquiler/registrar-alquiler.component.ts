@@ -67,4 +67,13 @@ export class RegistrarAlquilerComponent implements OnInit {
   resetForm(form: NgForm){
     form.reset();
   }
+
+  displayStyle = "none";
+  
+  openPopup() {
+    this.displayStyle = "block";
+  }
+  closePopup() {
+    this.displayStyle = "none";
+  }
 }

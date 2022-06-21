@@ -29,7 +29,25 @@
                           <input [(ngModel)]="alquiler.precio" name="precio" id="precio" required #precio="ngModel" type="number" class="form-control" placeholder="Ingrese el precio del alquiler.">
                         </div>
                         <br>
-                        <button [disabled]="form.invalid" type="submit" class="btn btn-primary">REGISTRAR</button>
+                        <button [disabled]="form.invalid" type="submit" class="btn btn-primary" (click)="openPopup()">REGISTRAR</button>
+                        <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 class="modal-title">Comprobante</h4>
+                              </div>
+                              <div class="modal-body">
+                                <p><strong>Cliente:</strong>{{alquiler.cliente}}</p>
+                                <p><strong>Maquinaria:</strong>{{alquiler.maquinaria}}</p>
+                                <p><strong>Fecha de devolucion:</strong>{{alquiler.fechaDevolucion}}</p>
+                                <p><strong>Precio: </strong>{{alquiler.precio}}</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" (click)="closePopup()">Cerrar</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                     </form>
                 </div>
             </div>

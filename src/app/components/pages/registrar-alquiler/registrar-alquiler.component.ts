@@ -59,6 +59,9 @@ export class RegistrarAlquilerComponent implements OnInit {
   }
 
   registrarAlquiler(){
+    var fech = new Date();
+    this.alquiler.fechaAlquiler = fech.toDateString();
+    console.log(this.alquiler.fechaAlquiler);
     this.alquilerService.createAlquiler(this.alquiler).subscribe((alq)=>{
       console.log(alq);
     })
